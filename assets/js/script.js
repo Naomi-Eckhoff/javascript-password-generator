@@ -6,10 +6,22 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = generatePassword(); //bounced to the next function. Don't be upsetti try some spaghetti
   var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+}
 
+
+
+//add function for generation of password and return 
+function generatePassword() {
   //add prompt with var dec length (8 to 128)?
+  var passLength = 0
+
+  // Is it weird? Yes. Does it handle data validation and resetting the variable on pressing the button again? Also yes. EFFICIENCY!!!!!! *lies I tell myself*
+  while (passLength < 8 || passLength > 128) {
+    passLength = parseInt(window.prompt("How long should the password be (8-128)"));
+  }
 
   //add prompt with var dev and if/switch with break include everything?
 
@@ -29,11 +41,7 @@ function writePassword() {
 
   //trigger password update if needed
 
-  passwordText.value = password;
 }
-
-//add function for generation of password and return 
-
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
