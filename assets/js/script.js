@@ -20,7 +20,10 @@ function generatePassword() {
 
   // Is it weird? Yes. Does it handle data validation and resetting the variable on pressing the button again? Also yes. EFFICIENCY!!!!!! *lies I tell myself*
   while (passLength < 8 || passLength > 128) {
-    passLength = parseInt(window.prompt("How long should the password be (8 to 128 required)"));
+    passLength = window.prompt("How long should the password be (8 to 128 required)");
+    if (passLength != null) {
+      passLength = parseInt(passLength);
+    }
   }
 
   //add prompt with var dev and if/switch include lowercase?
@@ -60,8 +63,13 @@ function generatePassword() {
   //Yep, that'll validate it
 
 
-  //add prompt with var dev and if/switch with break include everything?
+  //add prompt with var dec with switch no breaks. Those are for cowards. Only switch looping!
+  var alphabet = "abcdefghijklmnopqrstuvwxyz";
+  var ALPHABET = alphabet.toUpperCase(); // It's a dumb joke, but I refuse to not use it.
+  var numerals = "0123456789";
+  var specialChars = "\"'!#$%&()*+,-./:;<=>?@[]^_`{|}~";
 
+  var specialCharsArray = specialChars.split("");
   //insert other function maybe
 
   //trigger password update if needed
