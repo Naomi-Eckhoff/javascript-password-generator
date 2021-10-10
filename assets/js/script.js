@@ -1,46 +1,38 @@
 // Assignment code here
 
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword(); //bounced to the next function. Don't be upsetti try some spaghetti
+  var password = generatePassword(); //bounced to the next function for processing
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
-}
-
-
+};
 
 //add function for generation of password and return 
 function generatePassword() {
-  //add prompt with var dec length (8 to 128)?
-  var passLength;
 
-  // Is it weird? Yes. Does it handle data validation? Also yes. EFFICIENCY!!!!!! *lies I tell myself*
+  //variable to record desired length (8 to 128)
+  var passLength;
+  //Gets desired length. Conditionals force loop until data is valid
   while (isNaN(passLength) || passLength < 8 || passLength > 128) {
     passLength = parseInt(window.prompt("How long should the password be (8 to 128 required)"));
   }
 
-  //add prompt with var dev and if/switch include lowercase?
-  //add prompt with var dev and if/switch capital letters?
-  //add prompt with var dev and if/switch include numbers?
-  //add prompt with var dev and if/switch include special characters?
-  //if possible wrap those all up in one or two statements
-  //validate for inclusion of at least 1 type of character probably an if with lots of ||
-
+  //variables that control what characters are used
   var includedCharacters;
   var storageArray;
   var charactersArray = [];
-
+  //while loop's condition validates that at least one option is chosen
   while (charactersArray.length === 0) {
+    //prompt takes what options the user wants as a string
     includedCharacters = window.prompt("What characters should be used? Enter you choices as digits all at once. Format is irrelevant. 1 Lowercase. 2 Capitals. 3 Numbers. 4 Special Characters. At least 1 number is required.")
-
+    //this if statement splits up the previos string into individual characters
     if (includedCharacters != null) {
       storageArray = includedCharacters.split("");
     }
-
+    //This chunk of ifs check for the presence of 1 to 4 and then appends them to the charactersArray. This allows entry as 1.2.3..., 1,2,3,... or even 4 and 2 and 4 and 3 without issues
     if (storageArray.includes("1")) {
       charactersArray.push(1);
     }
@@ -57,21 +49,14 @@ function generatePassword() {
       charactersArray.push(4);
     }
   }
-  //Yep, that'll validate it
-  //Due to some issues over on the parseInt I error checked this and it seems bullet proof
 
-
-  //add prompt with var dec with switch no breaks. Those are for cowards. Only switch looping!
+  //variables containing a string of all possible characters of each type. This could be split off into it's own function but due to size I don't feel it's necessary.
   var alphabet = "abcdefghijklmnopqrstuvwxyz";
-  var ALPHABET = alphabet.toUpperCase(); // It's a dumb joke, but I refuse to not use it.
+  var ALPHABET = alphabet.toUpperCase(); //The name is a dumb joke that I'll defend with my life
   var numerals = "0123456789";
   var specialChars = "\\\"'!#$%&()*+,-./:;<=>?@[]^_`{|}~";
   var selectionArray = [];
-  var selectionArrayLength = 0;
-
-
-
-  //I got to learn that javascript does multidimensional arrays. I'm impressed but also slightly annoyed so now this exists.
+  //this is a forEach loop, nested in a switch, nested in a forEach loop. It splits the strings that are needed into arrays and pushes those elements to a shared array
   charactersArray.forEach(element => {
     switch (element) {
       case 1:
@@ -79,47 +64,37 @@ function generatePassword() {
         alphabet.forEach(element => {
           selectionArray.push(element);
         });
-        selectionArrayLength += alphabet.length;
         break;
       case 2:
         ALPHABET = ALPHABET.split("");
         ALPHABET.forEach(element => {
           selectionArray.push(element);
         });
-        selectionArrayLength += ALPHABET.length;
         break;
       case 3:
         numerals = numerals.split("");
         numerals.forEach(element => {
           selectionArray.push(element);
         });
-        selectionArrayLength += numerals.length;
         break;
       case 4:
         specialChars = specialChars.split("");
         specialChars.forEach(element => {
           selectionArray.push(element);
         });
-        selectionArrayLength += specialChars.length;
         break;
     }
   });
 
-
-  //string building for loop
+  //variable that gets returned as a string
   var passString = "";
-
+  //for loop that selects a random elements of the combined characters array and concatenates it to passString
   for (var i = 0; i < passLength; i++) {
-    passString += selectionArray[Math.trunc(Math.random() * selectionArrayLength)];
+    passString += selectionArray[Math.trunc(Math.random() * selectionArray.length)];
   }
-
+  //this string is returned as the value of the calling password variable
   return passString;
-}
-//insert other function maybe
-
-//trigger password update if needed
-
-
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
