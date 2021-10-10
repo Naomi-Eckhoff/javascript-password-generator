@@ -105,6 +105,15 @@ function generatePassword() {
     }
   });
 
+
+  //string building for loop
+  var passString = "";
+
+  for (var i = 0; i < passLength; i++) {
+    passString += selectionArray[Math.trunc(Math.random() * selectionArrayLength)];
+  }
+
+  return passString;
 }
 //insert other function maybe
 
